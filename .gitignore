@@ -1,0 +1,7 @@
+*.docx
+*.zip
+*.pptx
+Data/
+*.pdf
+.idea
+*.pyc
