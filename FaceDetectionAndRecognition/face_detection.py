@@ -21,7 +21,7 @@ def main():
 
 	training_images = []
 	training_images_labels = []
-	training_image_capture_count = 15
+	training_image_capture_count = 25
 	print "Recognizing first person"
 	while True:
 		frame, image, faces = get_faces(video_capture, face_cascade)
@@ -47,7 +47,9 @@ def main():
 		for (x, y, w, h) in faces:
 			predicted, conf = recognizer.predict(image[y: y + h, x: x + w])
 			if predicted == 25:
-				cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), cv2.FILLED)
+				face = frame[y - 25: y + h + 25, x - 25: x + w + 25]
+				face = cv2.GaussianBlur(face, (53, 53), 500)
+				frame[y - 25: y + h + 25, x - 25: x + w + 25] = face
 			else:
 				cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1)
 				cv2.putText(frame, 'Unknown', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
